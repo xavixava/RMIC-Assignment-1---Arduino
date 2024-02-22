@@ -21,10 +21,12 @@
 // Provide the RTDB payload printing info and other helper functions.
 #include <addons/RTDBHelper.h>
 
-#define WIFI_SSID "WIFI_AP"
-#define WIFI_PASSWORD "WIFI_PASSWORD"
+#define WIFI_SSID "Labs-LSD"
+#define WIFI_PASSWORD "aulaslsd"
 
-#define API_KEY "API_KEY"
+#define API_KEY "AIzaSyBpBLOIyIvXELegKn1Mlqcgspf5Wx5X4H8"
+
+#define DATABASE_URL "https://iot-alarm-app-a9790-default-rtdb.europe-west1.firebasedatabase.app/" //<databaseName>.firebaseio.com or <databaseName>.<region>.firebasedatabase.app
 
 const int trigPin = D3;
 const int echoPin = D5;
@@ -39,6 +41,19 @@ float distanceCm;
 #define SOUND_VELOCITY 0.034
 #define CM_TO_INCH 0.393701
 
+// Define Firebase Data object
+FirebaseData fbdo;
+
+FirebaseAuth auth;
+FirebaseConfig config;
+
+unsigned long sendDataPrevMillis = 0;
+
+unsigned long count = 0;
+
+#if defined(ARDUINO_RASPBERRY_PI_PICO_W)
+WiFiMulti multi;
+#endif
 
 
 void setup() {
